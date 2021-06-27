@@ -1,0 +1,45 @@
+Bibliotecas utilizadas.
+library(tidyverse) 
+> library(cluster) 
+> library(dendextend) 
+> library(factoextra) 
+> library(fpc) 
+> library(gridExtra) 
+> library(readxl)
+
+alunos_pap <- read.table("dados/alunos_pap.csv", sep = ";", header = T, dec = ",")
+> View(alunos_pap)
+> rownames(alunos_pap) <- alunos_pap[,1]
+> alunos_pap <- alunos_pap[,-1]
+d<- dist(alunos_pap , method= "euclidean")
+> d
+ hc1 <- hclust(d, method ="single")
+> hc2 <- hclust (d,method ="complete")
+> hc<- hclust(d, method= "average")
+> hc3<- hclust(d, method= "average")
+> hc4 <- hclust(d ,method = "ward.D")
+>  plot(hc1, cex= 0.6, hang= -1)
+> plot(hc2, cex= 0.6, hang =-1)
+> plot(hc3, cex= 0.6, hang=-1)
+> plot(hc4, cex= 0.6 , hang =1)
+> rect.hclust (hc4, k=2)
+> dend3 <- as.dendogram(hc3)
+
+dend3 <- as.dendrogram(hc3)
+> dend4 <- as.dendrogram((hc4))
+> dend_list <- dendlist(dend3 , dend4)
+>  tanglegram( dend3, dend4, main= paste( "emaranhado =", round(entanglement(dend_list),2)))
+> dend1 <- as.dendrogram(hc1)
+> dend2 <- as.dendrogram(hc2)
+> dend_list2 <- dendlist( dend1, dend2)
+> tanglegram(dend1, dend2, main = paste("Emaranhado =", round(entanglement(dend_list2),2)))
+> grupo_alunos2 <- cutree(hc4 , k=2)
+> table(grupo_alunos2)
+mediagrupo_alunos <- base_alunos_fim %>% 
++     group_by(grupo_alunos2) %>% 
++     summarise(n = n(),
++               Portugues = mean(Portugues), 
++               Matematica = mean(Matematica))
+> mediagrupo_alunos
+
+
