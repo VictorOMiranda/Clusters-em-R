@@ -1,3 +1,15 @@
+Na primeira parte eu agrupei os grupos de lanches, padronizei e fiz as médias deles.
+as biliotecas necessárias são:
+
+library(tidyverse) #pacote para manipulacao de dados
+library(cluster) #algoritmo de cluster
+library(dendextend) #compara dendogramas
+library(factoextra) #algoritmo de cluster e visualizacao
+library(fpc) #algoritmo de cluster e visualizacao
+library(gridExtra) #para a funcao grid arrange
+library(readxl)
+Não inclui no código abaixo, pois como já estava rodando outros modelos elas esavam instaladas.
+
 > mcdonalds<- read.table("dados/MCDONALDS.csv" , sep = ";" , header= T , dec= ",")
 > rownames (mcdonalds)  <- mcdonalds[,1]
 > mcdonalds <- mcdonalds[,1]
@@ -29,6 +41,7 @@ rect.hclust(cluster.hierarquico, k=2)
 
 
 #Cluster não Hierarquico
+Nessa segunda metade o modelo preparado acima é executado.
 
 > mcdonalds.k2 <- kmeans(mcdonalds.padronizado, centers = 2)
 > fviz_cluster(mcdonalds.k2, data = mcdonalds.padronizado, main = "Cluster K2")
