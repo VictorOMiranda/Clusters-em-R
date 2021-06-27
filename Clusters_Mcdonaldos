@@ -26,3 +26,18 @@ rect.hclust(cluster.hierarquico, k=2)
               +           Calcio = mean(Calcio), 
               +           Ferro = mean(Ferro))
 > mediagrupo
+
+
+#Cluster não Hierarquico
+
+> mcdonalds.k2 <- kmeans(mcdonalds.padronizado, centers = 2)
+> fviz_cluster(mcdonalds.k2, data = mcdonalds.padronizado, main = "Cluster K2")
+> mcdonalds.k3 <- kmeans(mcdonalds.padronizado, centers = 3)
+> mcdonalds.k4 <- kmeans(mcdonalds.padronizado, centers = 4)
+> mcdonalds.k5 <- kmeans(mcdonalds.padronizado, centers = 5)
+> G1 <- fviz_cluster(mcdonalds.k2, geom = "point", data = mcdonalds.padronizado) + ggtitle("k = 2")
+> G2 <- fviz_cluster(mcdonalds.k3, geom = "point",  data = mcdonalds.padronizado) + ggtitle("k = 3")
+> G3 <- fviz_cluster(mcdonalds.k4, geom = "point",  data = mcdonalds.padronizado) + ggtitle("k = 4")
+> G4 <- fviz_cluster(mcdonalds.k5, geom = "point",  data = mcdonalds.padronizado) + ggtitle("k = 5")
+> grid.arrange(G1, G2, G3, G4, nrow = 2)
+> fviz_nbclust(mcdonalds.padronizado, kmeans, method = "wss")
