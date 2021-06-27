@@ -1,0 +1,28 @@
+> mcdonalds<- read.table("dados/MCDONALDS.csv" , sep = ";" , header= T , dec= ",")
+> rownames (mcdonalds)  <- mcdonalds[,1]
+> mcdonalds <- mcdonalds[,1]
+> mcdonalds.padronizado <- scale(mcdonalds)
+> distancia <- dist(mcdonalds.padronizado, method = "euclidean")
+> cluster.hierarquico <-hclust(distancia, method = "single")
+plot(cluster.hierarquico, cex= 0.6, hang = -1)
+rect.hclust(cluster.hierarquico, k=2)
+> fviz_nbclust( mcdonalds.padronizado, FUN=  hcut, method = "wss")
+> lanches_grupos <- data.frame(grupo_lanches4)
+> grupo_lanches4 <-cutree (cluster.hierarquico, k=4)
+> table(grupo_lanches4)
+> base_lanches_fim <- cbind(mcdonalds, lanches_grupos)
+> mediagrupo<- base_lanches_fim%>%
+  + group_by(grupo_lanches4)%>%
+  + summarise(n=n(),
+              +           Valor.Energetico = mean(Valor.Energetico), 
+              +           Carboidratos = mean(Carboidratos), 
+              +           Proteinas = mean(Proteinas),
+              +           Gorduras.Totais = mean(Gorduras.Totais), 
+              +           Gorduras.Saturadas = mean(Gorduras.Saturadas), 
+              +           Gorduras.Trans = mean(Gorduras.Trans),
+              +           Colesterol = mean(Colesterol), 
+              +           Fibra.Alimentar = mean(Fibra.Alimentar), 
+              +           Sodio = mean(Sodio),
+              +           Calcio = mean(Calcio), 
+              +           Ferro = mean(Ferro))
+> mediagrupo
