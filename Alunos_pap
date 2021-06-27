@@ -1,11 +1,12 @@
 Bibliotecas utilizadas.
-library(tidyverse) 
-> library(cluster) 
-> library(dendextend) 
-> library(factoextra) 
-> library(fpc) 
-> library(gridExtra) 
-> library(readxl)
+
+library(tidyverse) #pacote para manipulacao de dados
+library(cluster) #algoritmo de cluster
+library(dendextend) #compara dendogramas
+library(factoextra) #algoritmo de cluster e visualizacao
+library(fpc) #algoritmo de cluster e visualizacao
+library(gridExtra) #para a funcao grid arrange
+library(readxl)
 
 alunos_pap <- read.table("dados/alunos_pap.csv", sep = ";", header = T, dec = ",")
 > View(alunos_pap)
